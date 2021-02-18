@@ -4,21 +4,25 @@
         <title>Интерактивное видео</title>
 
         <link href="css/reset.css" rel="stylesheet">
+        <link href="js/video-js-7.11.5/video-js.css" rel="stylesheet">
+        <!--<link href="js/video-js-4.12.11/video-js.css" rel="stylesheet">-->
         <link href="css/style.css" rel="stylesheet">
         <script src="js/jquery-3.5.1.js"></script>
-                <script src="js/script.js"></script>
+        <script src="js/video-js-7.11.5/video.js"></script>
+        <!--<script src="js/video-js-4.12.11/video.js"></script>-->
+        <script src="js/script.js"></script>
     </head>
     <body id="main">
 
         <div class="videos" >
-            <div class = "active scene_1">
-                <video class ="active v_main" autoplay="autoplay" controls>
+            <div class = "scene_1 active">
+                <video class ="v_main active" autoplay="autoplay" controls>
                     <source src="media/Video_1.mp4" type="video/mp4">
                 </video>
-                <video class ="hide v_1" controls>
+                <video class ="v_1 hide" autoplay="autoplay" controls>
                     <source src="media/Video_2.mp4" type="video/mp4">
                 </video>
-                <video class ="hide v_2" controls>
+                <video class ="v_2 hide" autoplay="autoplay" controls>
                     <source src="media/Video_3.mp4" type="video/mp4">
                 </video>
                 <div class ="hide choice">
@@ -30,14 +34,14 @@
                 </div>
             </div>
 
-            <div class ="hide scene_2">
-                <video class ="hide v_main" autoplay="autoplay" controls>
+            <div class ="scene_2 hide">
+                <video class ="v_main hide" autoplay="autoplay" controls>
                     <source src="media/Video_1.mp4" type="video/mp4">
                 </video>
-                <video class ="hide v_1" controls>
+                <video class ="v_1 hide" controls>
                     <source src="media/Video_2.mp4" type="video/mp4">
                 </video>
-                <video class ="hide v_2" controls>
+                <video class ="v_2 hide" controls>
                     <source src="media/Video_3.mp4" type="video/mp4">
                 </video>
                 <div class ="hide choice">
@@ -47,14 +51,15 @@
                     <div class ="ch_2">Видео 3_2</div>
                 </div>
             </div>
+        </div>
             <div class ="hide scene_3">
-                <video class ="hide v_main" autoplay="autoplay" controls>
+                <video class ="v_main hide" autoplay="autoplay" controls>
                     <source src="media/Video_1.mp4" type="video/mp4">
                 </video>
-                <video class ="hide v_1" controls>
+                <video class ="v_1 hide" controls>
                     <source src="media/Video_2.mp4" type="video/mp4">
                 </video>
-                <video class ="hide v_2" controls>
+                <video class ="v_2 hide" controls>
                     <source src="media/Video_3.mp4" type="video/mp4">
                 </video>
                 <div class ="hide choice">
