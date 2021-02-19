@@ -16,21 +16,21 @@
 
         <div class="videos" >
             <div class = "scene_1 active">
-                <video class ="v_main active" autoplay="autoplay" controls>
+                <video class ="v_main active" controls>
                     <source src="media/Video_1.mp4" type="video/mp4">
                 </video>
-                <video class ="v_1 hide" autoplay="autoplay" controls>
+                <video class ="v_1 hide" controls>
                     <source src="media/Video_2.mp4" type="video/mp4">
                 </video>
-                <video class ="v_2 hide" autoplay="autoplay" controls>
+                <video class ="v_2 hide" controls>
                     <source src="media/Video_3.mp4" type="video/mp4">
                 </video>
-                <div class ="hide choice">
+                <div class ="choice" style="display: none;">
                     <div>Что выбрать?</div>
                     <div class = "ch_buttons">
-                    <div class ="ch_1">Видео 2</div>
-                    <div class ="ch_2">Видео 3</div>
-                </div>
+                        <div class ="ch_1">Видео 2</div>
+                        <div class ="ch_2">Видео 3</div>
+                    </div>
                 </div>
             </div>
 
@@ -44,15 +44,15 @@
                 <video class ="v_2 hide" controls>
                     <source src="media/Video_3.mp4" type="video/mp4">
                 </video>
-                <div class ="hide choice">
+                <div class ="choice" style="display: none;">
                     <div>Что выбрать?</div>
                     <div class = "ch_buttons">
-                    <div class ="ch_1">Видео 2_2</div>
-                    <div class ="ch_2">Видео 3_2</div>
+                        <div class ="ch_1">Видео 2_2</div>
+                        <div class ="ch_2">Видео 3_2</div>
+                    </div>
                 </div>
             </div>
-        </div>
-            <div class ="hide scene_3">
+            <div class ="scene_3 hide">
                 <video class ="v_main hide" autoplay="autoplay" controls>
                     <source src="media/Video_1.mp4" type="video/mp4">
                 </video>
@@ -62,13 +62,22 @@
                 <video class ="v_2 hide" controls>
                     <source src="media/Video_3.mp4" type="video/mp4">
                 </video>
-                <div class ="hide choice">
+                <div class ="choice" style="display: none;">
                     <div>Что выбрать?</div>
                     <div class = "ch_buttons">
-                    <div class ="ch_1">Видео 2_3</div>
-                    <div class ="ch_2">Видео 3_3</div>
-                </div>
-            </div>           
+                        <div class ="ch_1">Видео 2_3</div>
+                        <div class ="ch_2">Видео 3_3</div>
+                    </div>
+                </div>           
+            </div>
         </div>
+        <div class="button">
+            Сцены
+        </div>
+        <div class="navigation" style="display: none;">
+            <div class ="scene_1">Сцена 1</div>
+            <div class ="scene_2">Сцена 2</div>
+            <div class ="scene_3">Сцена 3</div>
+        </div>    
     </body>
 </html>
