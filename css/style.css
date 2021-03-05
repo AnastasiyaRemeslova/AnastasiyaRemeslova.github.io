@@ -66,8 +66,6 @@ font-style: normal;
     height: 20%;
 }
 
-
-
 .ch_1, .ch_2{
 	display: flex;
     align-items: center;
@@ -76,6 +74,23 @@ font-style: normal;
 	height: 80%;
 	background: var(--white);
   cursor: pointer;
+}
+
+.timer {
+  width: 50%;
+  height: 4%;
+  margin: 0 25%;
+  background: var(--white);
+  align-items: left;
+
+}
+
+.timer_line {
+  width: 0;
+  height: 50%;
+  background: var(--dark-blue);
+  margin: 1%;
+
 }
 
 body{
@@ -196,12 +211,26 @@ $center-big-play-button: true; // true default
   display: flex;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
   width: 10%;
   height: 20%;
   background: var(--white);
   cursor: pointer;
 }
 
+.navigation .lock{
+  cursor: default;
+}
+
+.navigation div img{
+  display: none;
+  width: 35%;
+  background: var(--white);
+}
+
+.navigation .lock img{
+  display: block;
+}
 
 .button{
   display: flex;
@@ -215,6 +244,91 @@ $center-big-play-button: true; // true default
   background: var(--dark-blue);
   cursor: pointer;
   color: var(--white);
+}
+
+.button_game{
+  display: flex;
+    align-items: center;
+    justify-content: center;
+  width: 10%;
+  height: 10%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  background: var(--dark-blue);
+  cursor: pointer;
+  color: var(--white);
+}
+
+.game_1, .game_2{
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  top: 0;
+  background: var(--white);
+}
+
+.money_box{
+  width: 10%;
+  height: 5%;
+  background: var(--dark-blue);
+  position: absolute;
+  bottom: 2%;
+  left: 0;
+}
+
+.floor{
+  width: 100%;
+  height: 2%;
+  background: var(--gray);
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+
+.coin{
+  
+  width: 100px;
+  height:100px;
+  position:absolute;
+  top: -150px;
+  transition: transform 1.5s linear;
+  cursor: pointer;
+  z-index:100;
+  background: var(--red);
+}
+
+.purchases_box{
+  width: 80%;
+  height: 80%;
+  background: var(--light-gray);
+  position: absolute;
+  bottom: 10%;
+  left: 10%;
+}
+
+.purchase{
+  
+  width: 150px;
+  height:150px;
+  position: absolute;
+  left: -150px;
+  transition: transform 1.5s linear;
+  cursor: pointer;
+  z-index:100;
+  background: var(--blue);
+}
+
+.unnecessary {
+  background: var(--red);
+}
+
+.move{
+   transform:translateY(120vh);
 }
 
 .hide {
