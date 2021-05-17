@@ -7,88 +7,174 @@
         <link href="js/video-js-7.11.5/video-js.css" rel="stylesheet">
         <!--<link href="js/video-js-4.12.11/video-js.css" rel="stylesheet">-->
         <link href="css/style.css" rel="stylesheet">
+        <link href="css/style - main.css" rel="stylesheet">
         <script src="js/jquery-3.5.1.js"></script>
+        <script src="js/jquery-ui.js"></script>
         <script src="js/video-js-7.11.5/video.js"></script>
+        <script src="js/jquery.ui.touch-punch.min.js"></script>
         <!--<script src="js/video-js-4.12.11/video.js"></script>-->
         <script src="js/script.js"></script>
+
     </head>
     <body id="main">
 
         <div class="videos" >
             <div class = "scene_1 active">
                 <video class ="v_main active" controls>
-                    <source src="media/Video_1.mp4" type="video/mp4">
+                    <source src="media/Сцена 1.mp4" type="video/mp4">
                 </video>
-                <video class ="v_1 hide" controls>
-                    <source src="media/Video_2.mp4" type="video/mp4">
-                </video>
-                <video class ="v_2 hide" controls>
-                    <source src="media/Video_3.mp4" type="video/mp4">
-                </video>
-                <div class ="choice" style="display: none;">
-                    <div>Что выбрать?</div>
-                    <div class = "ch_buttons">
-                        <div class ="ch_1">Видео 2</div>
-                        <div class ="ch_2">Видео 3</div>
-                    </div>
-                    <div class="timer"><div class="timer_line"></div></div>
-                </div>
             </div>
 
             <div class ="scene_2 hide">
                 <video class ="v_main hide" autoplay="autoplay" controls>
-                    <source src="media/Video_1.mp4" type="video/mp4">
+                    <source src="media/Сцена 2.mp4" type="video/mp4">
                 </video>
                 <video class ="v_1 hide" controls>
-                    <source src="media/Video_2.mp4" type="video/mp4">
+                    <source src="media/Сцена 2-1.mp4" type="video/mp4">
                 </video>
                 <video class ="v_2 hide" controls>
-                    <source src="media/Video_3.mp4" type="video/mp4">
+                    <source src="media/Сцена 2-2.mp4" type="video/mp4">
                 </video>
                 <div class ="choice" style="display: none;">
-                    <div>Что выбрать?</div>
+                    <div class = "ch_title">Что сдалать Асе с подаренными деньгами?</div>
                     <div class = "ch_buttons">
-                        <div class ="ch_1">Видео 2_2</div>
-                        <div class ="ch_2">Видео 3_2</div>
+                        <div class ="ch_1">
+                            <div class = "ch_img"><img src="media/png/Сцена 2-1.png"></div>
+                            <div class = "ch_text">Купить новую часть</br>любимой игры</div>
+                        </div>
+                        <div class ="ch_2">
+                            <div class = "ch_img"><img src="media/png/Сцена 2-2.png"></div>
+                            <div class = "ch_text">Отложить всю сумму</br>на графический планшет</div>
+                        </div>
                     </div>
                     <div class="timer"><div class="timer_line"></div></div>
+                    <div class = "white_box"></div>
                 </div>
             </div>
             <div class ="scene_3 hide">
                 <video class ="v_main hide" autoplay="autoplay" controls>
-                    <source src="media/Video_1.mp4" type="video/mp4">
+                    <source src="media/Сцена 3.mp4" type="video/mp4">
                 </video>
                 <video class ="v_1 hide" controls>
-                    <source src="media/Video_2.mp4" type="video/mp4">
+                    <source src="media/Сцена 3-1.mp4" type="video/mp4">
                 </video>
                 <video class ="v_2 hide" controls>
-                    <source src="media/Video_3.mp4" type="video/mp4">
+                    <source src="media/Сцена 3-2.mp4" type="video/mp4">
                 </video>
                 <div class ="choice" style="display: none;">
-                    <div>Что выбрать?</div>
+                    <div class = "ch_title">Что Асе купить в такой ситуации?</div>
                     <div class = "ch_buttons">
-                        <div class ="ch_1">Видео 2_3</div>
-                        <div class ="ch_2">Видео 3_3</div>
+                        <div class ="ch_2">
+                            <div class = "ch_img"><img src="media/png/Сцена 3-2.png"></div>
+                            <div class = "ch_text">Набор красок для рисования</div>
+                        </div>
+                        <div class ="ch_1">
+                            <div class = "ch_img"><img src="media/png/Сцена 3-1.png"></div>
+                            <div class = "ch_text">Красивый блокнот</div>
+                        </div>
                     </div>
                     <div class="timer"><div class="timer_line"></div></div>
-                </div>           
+                    <div class = "white_box"></div>
+                </div>     
+            </div>
+            <div class ="scene_4 hide">
+                <video class ="v_main hide" autoplay="autoplay" controls>
+                    <source src="media/Сцена 4.mp4" type="video/mp4">
+                </video>
+                <video class ="v_1 hide" controls>
+                    <source src="media/Сцена 4-1.mp4" type="video/mp4">
+                </video>
+                <video class ="v_2 hide" controls>
+                    <source src="media/Сцена 4-2.mp4" type="video/mp4">
+                </video>
+                <div class ="choice" style="display: none;">
+                    <div class = "ch_title">Какую цель Асе выбрать наиболее важной?</div>
+                    <div class = "ch_buttons">
+                        <div class ="ch_1">
+                            <div class = "ch_img"><img src="media/png/Сцена 4-1.png"></div>
+                            <div class = "ch_text">4. Электросамокат</div>
+                        </div>
+                        <div class ="ch_2">
+                            <div class = "ch_img"><img src="media/png/Сцена 4-2.png"></div>
+                            <div class = "ch_text">6. Набор профессиональных маркеров</div>
+                        </div>
+                    </div>
+                    <div class="timer"><div class="timer_line"></div></div>
+                    <div class = "white_box"></div>
+                </div>         
+            </div>
+            <div class ="scene_5 hide">
+                <video class ="v_main hide" autoplay="autoplay" controls>
+                    <source src="media/Сцена 5.mp4" type="video/mp4">
+                </video>
+                <video class ="v_1 hide" controls>
+                    <source src="media/Сцена 5-1.mp4" type="video/mp4">
+                </video>
+                <video class ="v_2 hide" controls>
+                    <source src="media/Сцена 5-2.mp4" type="video/mp4">
+                </video>
+                <div class ="choice" style="display: none;">
+                    <div class = "ch_title">Как Асе поступить?</div>
+                    <div class = "ch_buttons">
+                        <div class ="ch_1">
+                            <div class = "ch_img"><img src="media/png/Сцена 5-1.png"></div>
+                            <div class = "ch_text">Посчитать все доходы и расходы,</br>а потом принять решение</div>
+                        </div>
+                        <div class ="ch_2">
+                            <div class = "ch_img"><img src="media/png/Сцена 5-2.png"></div>
+                            <div class = "ch_text">Проверить сумму в кошельке и купить,</br> если денег достаточно</div>
+                        </div>
+                    </div>
+                    <div class="timer"><div class="timer_line"></div></div>
+                    <div class = "white_box"></div>
+                </div>       
+            </div>
+            <div class ="scene_6 hide">
+                <video class ="v_1 hide" controls>
+                    <source src="media/Сцена 6-1.mp4" type="video/mp4">
+                </video>
+                <video class ="v_2 hide" controls>
+                    <source src="media/Сцена 6-2.mp4" type="video/mp4">
+                </video>
+                <video class ="v_3 hide" controls>
+                    <source src="media/Сцена 6-3.mp4" type="video/mp4">
+                </video>
+                <video class ="v_4 hide" controls>
+                    <source src="media/Сцена 6-4.mp4" type="video/mp4">
+                </video>   
             </div>
         </div>
         <div class="button">
             Сцены
         </div>
+        <div class="money">
+            <div class="total_money">0</div>
+        </div>
 
         <div class="navigation" style="display: none;">
-            <div class ="scene_1 lock">Сцена 1<img src="media/svg/padlock.svg"></div>
-            <div class ="scene_2 lock">Сцена 2<img src="media/svg/padlock.svg"></div>
-            <div class ="scene_3 lock">Сцена 3<img src="media/svg/padlock.svg"></div>
+            <div>
+                <div class ="scene_1 lock">Сцена 1<img src="media/svg/padlock.svg"></div>
+                <div class ="scene_2 lock">Сцена 2<img src="media/svg/padlock.svg"></div>
+                <div class ="game_1 lock">Игра 1<img src="media/svg/padlock.svg"></div>
+                <div class ="scene_3 lock">Сцена 3<img src="media/svg/padlock.svg"></div>
+                <div class ="game_2 lock">Игра 2<img src="media/svg/padlock.svg"></div>
+            </div>
+            <div>
+                <div class ="scene_4 lock">Сцена 4<img src="media/svg/padlock.svg"></div>
+                <div class ="game_3 lock">Игра 3<img src="media/svg/padlock.svg"></div>
+                <div class ="scene_5 lock">Сцена 5<img src="media/svg/padlock.svg"></div>
+                <div class ="game_4 lock">Игра 4<img src="media/svg/padlock.svg"></div>
+                <div class ="scene_6 lock">Сцена 6<img src="media/svg/padlock.svg"></div>
+             </div>
         </div> 
         <div class="button_game">
             Игры
         </div>
         <div class="game_1" style="display: none;">
-            <div class="money_box"></div>
+            <div class="game_1_box">
+            <div class="money_box"><img src="media/svg/Money_box.svg"></div>
             <div class="floor"></div>
+        </div>
         </div>
         <div class="game_2" style="display: none;">
             <div class="purchases_box"></div>

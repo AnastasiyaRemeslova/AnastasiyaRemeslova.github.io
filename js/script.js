@@ -22,6 +22,17 @@ var videos;
 
 var timeForChoice;
 
+var money = [
+{scene: 1, amount: 200, hasChange: false},
+{scene: 2, amount: 1500, ch_1: -1500, ch_2: 0, hasChange: false, hasChoiceChange: false},
+{scene: 3, amount: 250, ch_1: -200, ch_2: -200 , hasChange: false, hasChoiceChange: false},
+{scene: 4, amount: 300, ch_1: 0, ch_2: 0 , hasChange: false, hasChoiceChange: false},
+{scene: 5, amount: 350, ch_1: 0, ch_2: -300, hasChange: false, hasChoiceChange: false},
+{scene: 6, amount: 100, hasChange: false},
+];
+
+var totalMoney = 0;
+
 function videoCreate(videoJQuery) {
     var video = {
     id: '',
@@ -62,16 +73,15 @@ function videojsCreate(video){
     var videoj = videojs(video, {
       "autoplay": true,
       controlBar: {
-        children: [
-          "playToggle",
-          "volumeMenuButton",
-          "durationDisplay",
-          "timeDivider",
-          "currentTimeDisplay",
-          "progressControl",
-          "remainingTimeDisplay",
-          "fullscreenToggle"
-        ]
+            'playToggle': true,
+            'volumeMenuButton': { 'inline': false },
+            'timeDivider': false,
+            'durationDisplay': true,
+            'currentTimeDisplay': false,
+            'fullscreenToggle': false,
+            'pictureInPictureToggle': false,
+            'remainingTimeDisplay': false,
+        
       }, "fluid": true
     });
     videoj.dimensions(window.width, window.height);
@@ -137,7 +147,7 @@ function collision($div1, $div2) {
 function createCoin(){
     var coin = {
         top: '',
-        left: random($('.game_1').width()*0.1, $('.game_1').width()*0.9),
+        left: random($('.game_1_box').width()*0.1, $('.game_1_box').width()*0.9),
         speed: random(2, 5),
         JQ: $('<div/>', {
         class: "coin"
@@ -145,7 +155,7 @@ function createCoin(){
     }
     coin.top = coin.JQ.position().top;
     coin.JQ.css('left', coin.left);
-    $('.game_1').append(coin.JQ);
+    $('.game_1_box').append(coin.JQ);
     return coin;
 }
 
@@ -217,13 +227,14 @@ function startFirstGame(){
         }  
     }, 5000);
 */
-    moneyBox.JQ.parent().mousemove(function(event){
+/*
+    moneyBox.JQ.parent().on("touchmove mousemove", function(event){
         if(event.pageX > 0 && event.pageX < $(this).width() - moneyBox.width){
             moneyBox.JQ.css('left', event.pageX);
             moneyBox.position = moneyBox.JQ.position().left;
         }
-
     });
+    */
 /*
         $('.coin').each(function(){
         console.log($(this).position().top + $(this).height(), moneyBox.top, $(this).position().left, moneyBox.position);
@@ -232,13 +243,33 @@ function startFirstGame(){
             $(this).remove();
         }
     });*/
-    
+    $('.money_box').draggable({
+        axis: "x",
+        containment: 'parent',
+        stop: function(e, ui) {
+        var perc = ui.position.left / ui.helper.parent().width() * 100;
+        ui.helper.css('left', perc + '%');
+        var top = ui.position.top / ui.helper.parent().height() * 100;
+        ui.helper.css('top', top + '%');
+  }
+    });
 }
 
 //Игра - Очисти ленту от ненужных покупок
 
-var purchaseSpeed = 1;
+var purchaseSpeed = 0.05;
 var purchases = [];
+var numberPurchasesInHeight = 5;
+
+function findObjByJQ(array, JQ){
+    var obj;
+    $.each(array, function(){
+        if(this.JQ.is(JQ)){
+            obj = this;
+        }
+    });
+    return obj;
+}
 
 function createPurchase(){
     var purchase = {
@@ -246,14 +277,18 @@ function createPurchase(){
         top: 0,
         left: '',
         width: 0,
+        height:0,
         JQ: $('<div/>', {class: "purchase"})
     }
-    purchase.top = random($('.purchases_box').height()*0.1, $('.purchases_box').height()*0.9 - purchase.JQ.height());
-        $('.purchases_box').append(purchase.JQ);
+
+    $('.purchases_box').append(purchase.JQ);
     purchase.width = purchase.JQ.width();
-    purchase.left = purchase.JQ.position().left - purchases.length*purchase.width*1.5;
-    purchase.JQ.css('left', purchase.left);
-    purchase.JQ.css('top', purchase.top);
+    purchase.height = purchase.JQ.height();
+    var topNumber = random(1,numberPurchasesInHeight);
+    purchase.top = ((($('.purchases_box').height()-numberPurchasesInHeight*purchase.height)*topNumber)/(numberPurchasesInHeight+1) + purchase.height*(topNumber-1))/$('.purchases_box').height()*100;
+    purchase.left = (purchase.JQ.position().left - purchases.length*purchase.width*1.5)/$('.purchases_box').width()*100;
+    purchase.JQ.css('left', purchase.left+'%');
+    purchase.JQ.css('top', purchase.top+'%');
 
     if(purchase.isUnnecessary){
         purchase.JQ.addClass('unnecessary');
@@ -261,9 +296,27 @@ function createPurchase(){
     return purchase;
 }
 
+function recreatePurchase(purchase){
+    purchase.width = purchase.JQ.width();
+    purchase.height = purchase.JQ.height();
+    purchase.isUnnecessary = random(0,1);
+    var topNumber = random(1,numberPurchasesInHeight);
+    purchase.top = ((($('.purchases_box').height()-numberPurchasesInHeight*purchase.height)*topNumber)/(numberPurchasesInHeight+1) + purchase.height*(topNumber-1))/$('.purchases_box').height()*100;
+    console.log(purchases[purchases.length-1]);
+    purchase.left = purchases[purchases.length-1].left - purchase.width*1.5/$('.purchases_box').width()*100;
+    purchase.JQ.css('left', purchase.left+'%');
+    purchase.JQ.css('top', purchase.top+'%');
+
+    purchase.JQ.removeClass('unnecessary');
+    if(purchase.isUnnecessary){
+        purchase.JQ.addClass('unnecessary');
+    }
+    return purchase;
+}
+
 function purchaseMove(purchase) {
-    purchase.left = purchase.JQ.position().left;
-    purchase.JQ.css('left', purchase.left + purchaseSpeed);
+    purchase.left = purchase.JQ.position().left/$('.purchases_box').width()*100;
+    purchase.JQ.css('left', purchase.left + purchaseSpeed +'%');
 }
 
 function startSecondGame(){
@@ -271,6 +324,8 @@ function startSecondGame(){
 
     for(i=0; i<10; i++){
             purchases.push(createPurchase());
+            console.log(purchases);
+            
     }
         
 
@@ -284,14 +339,19 @@ function startSecondGame(){
     };
 
     setInterval(function(){
-        purchaseSpeed +=0.25;
+        purchaseSpeed +=0.0025;
     }, 2000);
+
+    $('.purchases_box > div').click(function(){
+        
+        var lastPurchase = purchases.splice(purchases.indexOf(findObjByJQ(purchases, $(this))),1)[0];
+        console.log(lastPurchase);
+        purchases.push(recreatePurchase(lastPurchase));
+ 
+    });
 
     anim_id = requestAnimationFrame(the_game);
 
-    $('.purchases_box > div').click(function(){
-        $(this).css('left', 0);
-    });
     
 }
 
@@ -325,39 +385,68 @@ $(document).ready(function() {
     $.each(videos, function () {
         var videoData = this;
         var player = this.vPlayer;
+console.log(videoData);
 
         player.on('play', function(){
 
             videoHTML = $('.active > .active');
             $('.navigation > .'+ videoData.scene).removeClass('lock');
+
+            var currentScene = Number(videoData.scene.slice(6,7));
+
+
+            this.on('timeupdate', function(){
+                            if(this.hasClass('v_main') && !money[currentScene-1].hasChange){
+                            totalMoney += money[currentScene-1].amount;
+            console.log(totalMoney,  money[currentScene-1].amount);    
+            $('.total_money').html(totalMoney);
+            money[currentScene-1].hasChange = true;
+            }
             
-                
-            this.on('timeupdate', function () {
+            if(!money[currentScene-1].hasChoiceChange){
+            if(this.hasClass('v_1')){
+                totalMoney += money[currentScene-1].ch_1;
+                console.log(totalMoney,  money[currentScene-1].ch_1);
+                            
+            money[currentScene-1].hasChoiceChange = true;
+            }
+            if(this.hasClass('v_2')){
+                totalMoney += money[currentScene-1].ch_2;
+                console.log(totalMoney,  money[currentScene-1].ch_2);
+            money[currentScene-1].hasChoiceChange = true;
+            }
+$('.total_money').html(totalMoney);
+            }
+        });
+
+
+            
+            this.on('ended', function(){
                 var p =this;
-                if(this.hasClass('v_main')) {
-                    if(!choice && this.currentTime() >= this.duration()-timeForChoice) {
+                if(this.hasClass('v_main') && !videoHTML.parent().hasClass('scene_1')) {
+                    setTimeout(function(){
+                        if(!choice){
+                        choice = true;
+                        console.log(videoData);
+                        $(videoData.vJQuery.parent().find('.ch_1')).trigger('click');
+                    }
+                    
+                }, timeForChoice*1000);
+                    if(!choice) {
                         videoData.vJQuery.parent().find('.choice').fadeIn(0);
                         var timer = videoData.vJQuery.parent().find('.timer_line');
                         timer.animate({
-                            width: '98%'
+                            width: '100%'
                         }, timeForChoice*1000);
+
                     }
+                    
 
                 }
-            });
-                
-            
-            this.on('ended', function(){
-                
-                if(this.hasClass('v_main')){
-                    if(!choice){
-                        choice = true;
-                        $(videoData.vJQuery.parent().find('.ch_1')).trigger('click');
-                    }
-                }
-                if(this.hasClass('v_1') || this.hasClass('v_2')){
+
+                if(this.hasClass('v_1') || this.hasClass('v_2') || videoHTML.parent().hasClass('scene_1')){
                     choice = false;
-
+                    console.log(this);
                     var lastVideoConteiner = videoHTML.parent();
                     var lastVideo = videoHTML;
 
@@ -395,25 +484,25 @@ $(document).ready(function() {
                         nextVideo.removeClass('hide');
                         nextVideo.addClass('active');
                         nextVideoJS.play();
+                        return;
                     }
                 }
             });
         });
     });
 
-    $('.v_main').on('timeupdate', function(){
-        if(!choice & this.currentTime >= this.duration-2) {
-            $(this).parent().find('.choice').fadeIn(0);
-        }
-    });
+
+
 
     $('.button').click(function() {
         $('.navigation').fadeIn(0);
     });
 
+//$('.game_1').fadeIn(0);
+        //startFirstGame();
     $('.button_game').click(function() {
-        $('.game_2').fadeIn(0);
-        startSecondGame();
+        $('.game_1').fadeIn(0);
+        startFirstGame();
     });
 
     $('.navigation > div').click(function() {
