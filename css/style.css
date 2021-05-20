@@ -4,20 +4,25 @@
 
 
 :root {
-  --dark-blue: #0f2649;
-  --blue: #2d71e6;
+  --dark-blue: #072344;
+  --blue: #0D3B7A;
   --light-blue: #d9f6ff;
 
-  --dark-red: #7f2b2b;
+  --dark-red: #CC553D;
   --red: #e64a4a;
   --light-red: #ffe6ee;
 
   --white: #fff;
 
-  --dark-gray: #2d2d2d;
+  --dark-gray: #373737;
   --gray: #ccc;
   --light-gray: #f2f2f2;
 
+  --light-yellow: #FFE299;
+  --yellow: #FFD24C;
+
+  --light-green: #79C29E;
+  --green: #2C7550;
 }
 
 
@@ -158,7 +163,8 @@ $center-big-play-button: true; // true default
 .game_1, .game_2{
   display: flex;
   align-items: center;
-  justify-content: space-around;
+  justify-content: center;
+  flex-direction: column;
   position: absolute;
   width: 100%;
   height: 100%;
@@ -190,7 +196,7 @@ $center-big-play-button: true; // true default
   height: 100%;
 }
 
-.floor{
+.floor_line{
   width: 100%;
   height: 2%;
   background: var(--gray);
@@ -204,36 +210,150 @@ $center-big-play-button: true; // true default
   width: 5%;
   height: 10%;
   position:absolute;
-  top: -15%;
+  top: -10vw;
   transition: transform 1.5s linear;
   cursor: pointer;
   z-index:100;
   background: var(--red);
 }
 
-.purchases_box{
-  width: 80%;
-  height: 80%;
-  background: var(--light-gray);
+.game_title{
+  display: flex;
+    align-items: center;
+    justify-content: center;
+  color: var(--blue);
+  font-family: Montserrat-SemiBold;
+  font-size: 1.25em;
+  line-height: 1.16em;
+  text-align: center;
+  width: 67.71vw;
+  height: 5.21vw;
+  margin-top: 6.77vw;
+  margin-bottom: 0;
+}
+
+.game_2 .game_title{
+    color: var(--dark-red);
+}
+
+.game_2 {
+      background-color: var(--light-yellow);
+}
+
+.game_2_box{
+  width: 100%;
+  height: 34.38vw;
+  background: var(--dark-gray);
+}
+
+.buy_total_box{
+  width: 20.83vw;
   position: absolute;
-  bottom: 10%;
-  left: 10%;
+  margin-top: 23.96vw;
+  right: 0;
+  z-index: 2;
+}
+
+.buy_total{
+  position: absolute;
+  top: 0;
+  display: flex;
+  width: 10.42vw;
+  height: 4.17vw;
+
+  margin-top: 2.6vw;
+  color: var(--white);
+  font-family: Montserrat-Bold;
+  font-size: 1.25em;
+  line-height: 0.75em;
+  text-align: right;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.purchases_all{
+  width: 100%;
+  height: 34.38vw;
+  background: var(--dark-gray);
+  position: absolute;
+  left: 0;
+}
+
+.purchases_all img{
+  width: 100%;
+  text-align: center;
+}
+
+
+.purchases_box{
+  width: 100%;
+  height: 80%;
+  position: absolute;
+  top: 10%;
+  overflow: hidden;
+}
+
+.buy_line{
+  width: 2.08vw;
+  height: 100%;
+  position: absolute;
+  right: 10.94vw;
+  z-index: 0;
+  top: 0;
 }
 
 .purchase{
   
-  width: 15%;
-  height:15%;
+  width: 10.42vw;
+  height:10.42vw;
   position: absolute;
-  left: -150px;
-  transition: transform 1.5s linear;
+  left: -20vw;
   cursor: pointer;
   z-index:100;
-  background: var(--blue);
+  border: 0.0vw solid var(--red);
+  border-radius: 5.21vw;
 }
 
 .unnecessary {
-  background: var(--red);
+  border-color: var(--yellow);
+
+}
+
+.purchase img{
+  width: 100%;
+  text-align: center;
+}
+
+.purchase_price{
+  position: absolute;
+  bottom: 1.04vw;
+  right: 1.56vw;
+  background-color: var(--dark-gray);
+  width: 2.6vw;
+  height: 2.6vw;
+  border: 0.16vw solid var(--white);
+  border-radius: 2.6vw;
+  color: var(--white);
+  font-family: Montserrat-Medium;
+  font-size: 0.75em;
+  line-height: 0.75em;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.game_window{
+  width: 20vw;
+  height: 20vw;
+  background-color: var(--white);
+  color: var(--blue);
+    font-size: 0.75em;
+  line-height: 0.75em;
+  text-align: center;
+  position: absolute;
+  top: 40vw;
+  left: 40vw;
 }
 
 .move{

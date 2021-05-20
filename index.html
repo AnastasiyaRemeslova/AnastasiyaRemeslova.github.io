@@ -122,7 +122,7 @@
                         </div>
                         <div class ="ch_2">
                             <div class = "ch_img"><img src="media/png/Сцена 5-2.png"></div>
-                            <div class = "ch_text">Проверить сумму в кошельке и купить,</br> если денег достаточно</div>
+                            <div class = "ch_text">Проверить сумму в кошельке и купить, если денег достаточно</div>
                         </div>
                     </div>
                     <div class="timer"><div class="timer_line"></div></div>
@@ -149,6 +149,8 @@
         </div>
         <div class="money">
             <div class="total_money">0</div>
+            <div class="change_money">+100</div>
+            <img class="wallet_icon" src="media/svg/wallet_icon.svg">
         </div>
 
         <div class="navigation" style="display: none;">
@@ -171,13 +173,36 @@
             Игры
         </div>
         <div class="game_1" style="display: none;">
-            <div class="game_1_box">
-            <div class="money_box"><img src="media/svg/Money_box.svg"></div>
-            <div class="floor"></div>
+            <div class = "game_title">Собери деньги в конверт</div>
+            <div class = "game_1_box">
+                <div class="money_box"><img src="media/svg/Money_box.svg"></div>
+                <div class="floor_line"></div>
+                <div class="coins_all">
+                    <div class="purchases_box"></div>
+                </div>
+            </div>
+            <div class="timer"><div class="timer_line"></div></div>
+            <div class = "white_box"></div>
         </div>
         </div>
         <div class="game_2" style="display: none;">
-            <div class="purchases_box"></div>
+            <div class = "game_title">Купи художественные товары на 1000 рублей</div>
+            <div class = "game_2_box">
+                <div class="buy_line"></div>
+                <div class="purchases_all">
+                    <img src="media/svg/game_2_bg.svg">
+                    <div class="purchases_box"></div>
+                </div>
+                <div class="buy_total_box">
+                    <img src="media/svg/buy_total_bg.svg">
+                    <div class="buy_total">0.00</div>
+                </div>
+            </div>
+            <div class="timer"><div class="timer_line"></div></div>
+            <div class = "white_box"></div>
+        </div>
+        <div class="game_window" style="display: none;">
+            <div class="text"></div>
         </div>  
     </body>
 </html>
