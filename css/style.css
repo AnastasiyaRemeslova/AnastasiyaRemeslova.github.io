@@ -6,11 +6,11 @@
 :root {
   --dark-blue: #072344;
   --blue: #0D3B7A;
-  --light-blue: #d9f6ff;
+  --light-blue: #99DBFF;
 
   --dark-red: #CC553D;
   --red: #e64a4a;
-  --light-red: #ffe6ee;
+  --light-red: #F7CDCD;
 
   --white: #fff;
 
@@ -160,13 +160,13 @@ $center-big-play-button: true; // true default
   color: var(--white);
 }
 
-.game_1, .game_2{
+.game_1, .game_2, .game_3, .game_4{
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
   position: absolute;
-  width: 100%;
+  width: 100vw;
   height: 100%;
   padding: 0;
   top: 0;
@@ -174,22 +174,30 @@ $center-big-play-button: true; // true default
 }
 
 .game_1_box{
-  width: 73.96%;
-  height: 61.11%;
-  background: var(--blue);
-  position: absolute;
-  bottom: 17.59%;
-  left: 13.02%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 100%;
+  height: 34.38vw;
+
+
   overflow: hidden;
 }
 
+.game_1_box img{
+  width: 100%;
+  text-align: center;
+  position: relative;
+  top: 0;
+}
 
 .money_box{
-  width: 10%;
-  height: 10%;
-  position: absolute;
-  bottom: 2%;
-  left: 0;
+  width: 10.42vw;
+  height: 5.21vw;
+  position: relative;
+  bottom: 7.3vw;
+  left: 31.25vw;
 }
 
 .money_box img {
@@ -198,23 +206,41 @@ $center-big-play-button: true; // true default
 
 .floor_line{
   width: 100%;
-  height: 2%;
-  background: var(--gray);
-  position: absolute;
+  height: 2.08vw;
+  position: relative;
   bottom: 0;
-  left: 0;
+}
+
+.coins_box{
+  width: 73.96vw;
+  height: 30.21vw;
+  overflow: hidden;
+  position: relative;
+  background: var(--light-green);
+}
+
+.coins_all{
+  width: 73.96vw;
+  height: 30.21vw;
 }
 
 .coin{
-  
-  width: 5%;
-  height: 10%;
-  position:absolute;
-  top: -10vw;
-  transition: transform 1.5s linear;
+    width: 5.21vw;
+  height: 5.21vw;
+  position: relative;
+  top: 0;
   cursor: pointer;
   z-index:100;
-  background: var(--red);
+  transform: translateY(0);
+}
+
+.money_100 {
+    width: 5.21vw;
+  height: 5.21vw;
+}
+
+.coin img{
+  width: 100%;
 }
 
 .game_title{
@@ -232,12 +258,37 @@ $center-big-play-button: true; // true default
   margin-bottom: 0;
 }
 
+.game_1 .game_title{
+    color: var(--green);
+}
+
+.game_1 {
+      background-color: var(--light-green);
+}
+
 .game_2 .game_title{
     color: var(--dark-red);
 }
 
 .game_2 {
       background-color: var(--light-yellow);
+}
+
+.game_3 .game_title{
+    color: var(--blue);
+}
+
+.game_3 {
+      background-color: var(--light-blue);
+}
+
+
+.game_4 .game_title{
+    color: var(--green);
+}
+
+.game_4 {
+      background-color: var(--light-red);
 }
 
 .game_2_box{
@@ -286,10 +337,10 @@ $center-big-play-button: true; // true default
 
 
 .purchases_box{
-  width: 100%;
-  height: 80%;
+  width: 100vw;
+  height: 30.21vw;
   position: absolute;
-  top: 10%;
+  top: 2.08vw;
   overflow: hidden;
 }
 
@@ -307,11 +358,12 @@ $center-big-play-button: true; // true default
   width: 10.42vw;
   height:10.42vw;
   position: absolute;
-  left: -20vw;
+  left: 0;
   cursor: pointer;
   z-index:100;
   border: 0.0vw solid var(--red);
   border-radius: 5.21vw;
+  transform: translateX(-10vw);
 }
 
 .unnecessary {
@@ -343,6 +395,111 @@ $center-big-play-button: true; // true default
   justify-content: center;
 }
 
+.game_3_box{
+  width: 100vw;
+  height: 30.21vw;
+  overflow: hidden;
+
+}
+
+.game_4_box{
+  width: 100vw;
+  height: 30.21vw;
+  overflow: hidden;
+
+}
+
+.notes_all{
+  width: 100vw;
+  height: 30.21vw;
+  overflow: hidden;
+  position: absolute;
+}
+
+.note{
+  width: 20.83vw;
+  height: 11.46vw;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  transform: scale(1);
+  opacity: 1;
+}
+
+@keyframes appear{
+    from{
+        transform:scale(0);
+        opacity: 0;
+    }
+    to{
+      opacity: 1;
+        transform:scale(1);
+    }
+}
+
+@keyframes disappear{
+    from{
+        transform:scale(1);
+        opacity: 1;
+    }
+    to{
+      opacity: 0;
+        transform:scale(0);
+    }
+}
+
+.appear_animation {
+    transform: scale(0);
+  opacity: 0;
+  animation: appear 1s;
+}
+
+.disappear_animation {
+    transform: scale(1);
+  opacity: 1;
+  animation: disappear 1s;
+}
+
+.note_text{
+  width: 16.83vw;
+  height: 2.38vw;
+  background-color: var(--red);
+  border-radius: 2.6vw;
+  color: var(--white);
+  font-family: Montserrat-Medium;
+  font-size: 0.75em;
+  line-height: 0.75em;
+  padding: 3vw 2vw;
+}
+
+.note_amount{
+  width: 10.42vw;
+  height: 5.21vw;
+  background-color: var(--white);
+  border: 0.16vw solid var(--red);
+  border-radius: 2.6vw;
+  color: var(--red);
+  position: absolute;
+  bottom: 0;
+    font-family: Montserrat-SemiBold;
+  font-size: 1em;
+  line-height: 0.75em;
+    display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.income .note_text{
+    background-color: var(--green);
+}
+
+.income .note_amount{
+  border-color: var(--green);
+  color: var(--green);
+}
+
 .game_window{
   width: 20vw;
   height: 20vw;
@@ -355,6 +512,8 @@ $center-big-play-button: true; // true default
   top: 40vw;
   left: 40vw;
 }
+
+
 
 .move{
    transform:translateY(120vh);

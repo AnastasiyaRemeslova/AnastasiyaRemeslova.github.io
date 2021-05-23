@@ -91,16 +91,11 @@ function videojsCreate(video){
 
 
 function playVideo(video, lastVideo) {
-
-
     var vClass = video.attr('class').slice(0, video.attr('class').indexOf(' '))
     var cClass = video.parent().attr('class').slice(0, video.parent().attr('class').indexOf(' '));
     var nextVideo;
     $.each(videos, function () {
         var player = this.vPlayer;
-        /*if(player.hasClass(vClass) && $('#'+player.id()).parent().hasClass(cClass)){
-            nextVideo = player;
-        }*/
         if(this.id == video.attr('id')){
             nextVideo = this.vPlayer;
         }
@@ -121,347 +116,15 @@ function playVideo(video, lastVideo) {
     nextVideo.play();
 }
 
-//Игра - Собери монетки в копилку
-
-var moneyBox;
-
-function random(min,max){
-    return Math.round(Math.random() * (max-min) + min);
-}
-
-function collision($div1, $div2) {
-    var x1 = $div1.position().left;
-    var y1 = $div1.position().top;
-    var h1 = $div1.outerHeight(true);
-    var w1 = $div1.outerWidth(true);
-    var b1 = y1 + h1;
-    var r1 = x1 + w1;
-    var x2 = $div2.position().left;
-    var y2 = $div2.position().top;
-    var h2 = $div2.outerHeight(true);
-    var w2 = $div2.outerWidth(true);
-    var b2 = y2 + h2;
-    var r2 = x2 + w2;
-
-    if (b1 < y2 || y1 > b2 || r1 < x2 || x1 > r2) return false;
-    return true;
-}
-
-function createCoin(){
-    var coin = {
-        top: '',
-        left: random($('.game_1_box').width()*0.1, $('.game_1_box').width()*0.9)/$('.game_1_box').width()*100,
-        speed: random(2, 5),
-        JQ: $('<div/>', {
-        class: "coin"
-    })
-    }
-    coin.top = coin.JQ.position().top;
-    coin.JQ.css('left', coin.left + '%');
-    $('.game_1_box').append(coin.JQ);
-    return coin;
-}
-
-function coinDown(coin) {
-    coin.top = coin.JQ.position().top;
-    coin.JQ.css('top', coin.top + coin.speed);
-}
-
-function checkCoinTouchMoneybox(coin) {
-    if (collision(coin.JQ, moneyBox.JQ)) {
-        coin.top = parseInt(coin.JQ.css('top'));
-        if (coin.top < moneyBox.top) {
-            return true;
-        }
-    }
-    return false;
-}
-
-function checkCoinTouchFloor(coin) {
-    if (collision(coin.JQ, $('.floor_line'))) {
-        coin.top = parseInt(coin.JQ.css('top'));
-        if (coin.top < $('.floor_line').position().top) {
-            return true;
-        }
-    }
-    return false;
-}
-
-function startFirstGame(){
-
-    $('.game_1').fadeIn(0);
-
-    moneyBox = {
-        JQ: $('.money_box'),
-        width: $('.money_box').width(),
-        position: $('.money_box').position().left,
-        top: $('.money_box').position().top 
-    }
-
-
-    var timer = $('.game_1').find('.timer_line');
-    timer.animate({
-        width: '100%'
-    }, timeForGame*1000);
-    setTimeout(function(){
-        timer.finish();
-        timer.css('width', 0);
-        isPlaying = false;
-        cancelAnimationFrame(anim_id);
-        $('.game_window > .text').html('За время игры ты собрал '+money[1].game+' руб.');
-        $('.game_window').fadeIn(0);
-    }, timeForGame*1000);
-
-    var coins = [];
-    for(i = 0; i<10; i++){
-        coins.push(createCoin());
-    }
-
-    var the_game = 0;
-    the_game = function () {
-        $.each(coins, function(){
-        var coin = this;
-
-        if (checkCoinTouchMoneybox(coin) || checkCoinTouchFloor(coin)) {
-            coin.top = -10;
-            coin.JQ.css('top', coin.top + '%');
-            coin.left = random($('.game_1_box').width()*0.1, $('.game_1_box').width()*0.9);
-            coin.JQ.css('left', coin.left);
-            console.log($('.game_1').width(), coin);
-        } else {
-            coinDown(coin);
-        }
-
-        });
-        requestAnimationFrame(the_game);
-    };
-
-
-    anim_id = requestAnimationFrame(the_game);
-/*
-    for (i = 0; i < 1; i++) { 
-        dropCoin();
-    }
-    setInterval(function(){
-        for (i = 0; i < 1; i++) { 
-            dropCoin();
-        }  
-    }, 5000);
-*/
-/*
-    moneyBox.JQ.parent().on("touchmove mousemove", function(event){
-        if(event.pageX > 0 && event.pageX < $(this).width() - moneyBox.width){
-            moneyBox.JQ.css('left', event.pageX);
-            moneyBox.position = moneyBox.JQ.position().left;
-        }
-    });
-    */
-/*
-        $('.coin').each(function(){
-        console.log($(this).position().top + $(this).height(), moneyBox.top, $(this).position().left, moneyBox.position);
-        if($(this).position().top + $(this).height() >= moneyBox.top){
-            console.log("!!!!!!!!!");
-            $(this).remove();
-        }
-    });*/
-    $('.money_box').draggable({
-        axis: "x",
-        containment: 'parent',
-        stop: function(e, ui) {
-        var perc = ui.position.left / ui.helper.parent().width() * 100;
-        ui.helper.css('left', perc + '%');
-        var top = ui.position.top / ui.helper.parent().height() * 100;
-        ui.helper.css('top', top + '%');
-  }
-    });
-}
-
-//Игра - Очисти ленту от ненужных покупок
-
-var purchaseSpeed = 0.3;
-var purchases = [], purchasesBought = [];
-var numberPurchasesInHeight = 3, betweenPurchases = 1.2;
-
-var buyLine;
-
-var purchasesData = [
-    [{price: 50, url: 'media/svg/purchase_n_1.svg'},
-    {price: 100, url: 'media/svg/purchase_n_2.svg'},
-    {price: 150, url: 'media/svg/purchase_n_3.svg'},
-    {price: 200, url: 'media/svg/purchase_n_4.svg'}]
-,
-
-    [{price: 50, url: 'media/svg/purchase_un_1.svg'},
-    {price: 100, url: 'media/svg/purchase_un_2.svg'},
-    {price: 100, url: 'media/svg/purchase_un_4.svg'},
-    {price: 150, url: 'media/svg/purchase_un_3.svg'}]
-
-];
-
-function findObjByJQ(array, JQ){
-    var obj;
-    $.each(array, function(){
-        if(this.JQ.is(JQ)){
-            obj = this;
-        }
-    });
-    return obj;
-}
-
-
-function createPurchase(){
-    var purchase = {
-        number: 2,
-        isUnnecessary: random(0,100)<40 ? 0 : 1,
-        price: 0,
-        url: '',
-        top: 0,
-        left: 0,
-        width: 0,
-        height:0,
-        JQ: $(''),
-        isBought: false
-    }
-
-
-do{
-        var elementData = purchasesData[purchase.isUnnecessary][random(0,purchasesData[purchase.isUnnecessary].length-1)];
-    purchase.price = elementData.price;
-    purchase.url = elementData.url;
-    if(!purchases.length) break;
-}while(purchases[purchases.length-1].url == purchase.url);
-
-
-
-    purchase.JQ = $('<div class="purchase"><img src="'+purchase.url+'"><div class="purchase_price">'+purchase.price+'</div></div>');
-
-    $('.purchases_box').append(purchase.JQ);
-    purchase.width = purchase.JQ.width();
-    purchase.height = purchase.JQ.height();
-
-    var prev, topNumber, prevNumber;
-    if(purchases.length){
-        prev = purchases[purchases.length-1];
-        prevNumber = prev.number;
-    } else {
-        prevNumber = 2;
-    }
-do{
-    topNumber = random(1,numberPurchasesInHeight);
-}while(topNumber == prevNumber);
-
-    if(purchases.length) {
-        if(prev.number%2 == topNumber%2) {
-            if(prev.number<=numberPurchasesInHeight/2) topNumber=prev.number+2;
-            else topNumber=prev.number-2;
-    }
-}
-    purchase.number = topNumber;
-    purchase.top = ((($('.purchases_box').height()-numberPurchasesInHeight*purchase.height)*topNumber)/(numberPurchasesInHeight+1) + purchase.height*(topNumber-1))/$('.purchases_box').height()*100;
-
-    purchase.JQ.css('top', purchase.top+'%');
-
-if(purchases.length>2){
-    if(prev.number%2 == purchase.number%2 && purchases[purchases.length-2].left != prev.left){
-        purchase.left = prev.left;
-    } else {
-        purchase.left = prev.left - purchase.width*betweenPurchases/$('.purchases_box').width()*100;
-    }
-} else {
-    purchase.left = (purchase.JQ.position().left - purchases.length*purchase.width*betweenPurchases)/$('.purchases_box').width()*100;
-}
-    
-    purchase.JQ.css('left', purchase.left+'%');
-
-
-    if(purchase.isUnnecessary){
-        purchase.JQ.addClass('unnecessary');
-    }
-   // console.log(purchase);
-    return purchase;
-}
-
-function recreatePurchase(purchase){
-    purchase.isBought = false;
-    purchase.width = purchase.JQ.width();
-    purchase.height = purchase.JQ.height();
-
-    purchase.isUnnecessary = random(0,100)<40 ? 0 : 1;
-
-do{
-    var elementData = purchasesData[purchase.isUnnecessary][random(0,purchasesData[purchase.isUnnecessary].length-1)];
-    purchase.price = elementData.price;
-    purchase.url = elementData.url;
-    if(!purchases.length) break;
-}while(purchases[purchases.length-1].url == purchase.url);
-    
-    purchase.JQ.removeClass('unnecessary');
-
-    if(purchase.isUnnecessary){
-        purchase.JQ.addClass('unnecessary');
-    }
-
-    purchase.JQ.find('img').attr('src', purchase.src);
-    purchase.JQ.find('.purchase_price').html(purchase.price);
-    console.log(purchase.JQ.find('img'), purchase.JQ.find('.purchase_price'))
-
-    var topNumber = random(1,numberPurchasesInHeight);
-    purchase.top = ((($('.purchases_box').height()-numberPurchasesInHeight*purchase.height)*topNumber)/(numberPurchasesInHeight+1) + purchase.height*(topNumber-1))/$('.purchases_box').height()*100;
-    purchase.number = topNumber;
-    prev = purchases[purchases.length-1];
-    if(prev.number%2 == purchase.number%2 && prev.number != purchase.number && purchases[purchases.length-2].left != prev.left){
-
-        purchase.left = prev.left;
-    } else {
-
-        purchase.left = prev.left - purchase.width*betweenPurchases/$('.purchases_box').width()*100;
-    }
-    purchase.JQ.css('left', purchase.left+'%');
-    purchase.JQ.css('top', purchase.top+'%');
-
-
-    return purchase;
-}
-
-function checkPurchaseTouchBuyLine(purchase) {
-    if (collision(purchase.JQ, buyLine.JQ)) {
-        var left = parseInt(purchase.JQ.css('left'));
-        if (left < buyLine.left) {
-            return true;
-        }
-    }
-    return false;
-}
-
-function checkPurchaseOutsideWindow(purchase) {
-    var gameWindow = $('.game_2');
-    if (collision(purchase.JQ, gameWindow)) {
-        purchase.left = parseInt(purchase.JQ.css('left'));
-        if (purchase.left > gameWindow.width) {
-            return true;
-        }
-    }
-    return false;
-}
-
-function purchaseMove(purchase) {
-    //purchase.left = purchase.JQ.position().left/$('.purchases_box').width()*100;
-    purchase.left += purchaseSpeed;
-    if(purchase.left < -11){
-        
-    } else{
-
-        purchase.JQ.css('left', purchase.left +'%');
-    }
-    return purchase;
-}
-
 function changeTotalMoney(amount){
     var changeMoney = $('.change_money')
     if(amount<0){
         changeMoney.addClass('spend');
-    }
         changeMoney.html(amount);
+    } else {
+        changeMoney.html('+'+amount);
+    }
+        
         changeMoney.animate({
             opacity: '100%',
             'marginTop': '0'
@@ -481,93 +144,117 @@ function changeTotalMoney(amount){
 
 }
 
-function startSecondGame(){
+function findObjByJQ(array, JQ){
+    var obj;
+    $.each(array, function(){
+        if(this.JQ.is(JQ)){
+            obj = this;
+        }
+    });
+    return obj;
+}
 
-    $('.game_2').fadeIn(0);
+function random(min,max){
+    return Math.round(Math.random() * (max-min) + min);
+}
 
-    buyLine = {
-        JQ: $('.buy_line'),
-        width: $('.buy_line').width(),
-        left: $('.buy_line').position().left,
-        top: $('.buy_line').position().top 
-    }
+function collision($div1, $div2) {
+    var x1 = $div1.offset().left;
+    var y1 = $div1.offset().top;
+    var h1 = $div1.outerHeight(true);
+    var w1 = $div1.outerWidth(true);
+    var b1 = y1 + h1;
+    var r1 = x1 + w1;
+    var x2 = $div2.offset().left;
+    var y2 = $div2.offset().top;
+    var h2 = $div2.outerHeight(true);
+    var w2 = $div2.outerWidth(true);
+    var b2 = y2 + h2;
+    var r2 = x2 + w2;
 
-    var buyTotal = 0, isPlaying = true, countNecessary=0;
+    if (b1 < y2 || y1 > b2 || r1 < x2 || x1 > r2) return false;
+    return true;
+}
 
-    var anim_id;
+//Игра - сформулируй цели
+var percentIncome = 50, countGoals = 10, positionMultiplicity=20, maxTime = 7, numberCollectIncome=0, numberCollectCost=0, prizeTotal, prize = 50, isPlaying4 = true;
+var goals = [];
+var notesData = [
+[{text: 'Набор карандашей', amount: -100},
+    {text: 'Мороженое и сок', amount: -100},
+    {text: 'Шоколадка', amount: -50},
+    {text: 'Стикеры', amount: -50},
+    {text: 'Перекусы в школе', amount: -200}]
+,
+    [{text: 'Карманные деньги', amount: 250},
+    {text: 'От бабушки', amount: 100},
+    {text: 'На школьные обеды', amount: 300},
+    {text: 'За помощь по дому', amount: 150}]
+];
 
-    var timer = $('.game_2').find('.timer_line');
+var cellsData = [
+    {top: 0, left: 130},
+    {top: 0, left: 690},
+    {top: 0, left: 1250},
+    {top: 340, left: 130},
+    {top: 340, left: 690},
+    {top: 340, left: 1250}];
+
+function createGoal(number){
+    var goal = {
+        isFprmulated: false,
+        number: number,
+        top: 0,
+        left: 0,
+        width: 0,
+        height: 0,
+        JQ: $('')
+    };
+
+
+    goal.JQ = $('.goals_all > div:nth-child('+number+')');
+    goal.JQ.find('.goal_text').html('Цель '+number);
+    
+
+    goal.JQ.css('opacity', 0);
+    goal.JQ.css('transform', 'scale(0)');
+
+
+
+    goal.width = goal.JQ.width();
+    goal.height = goal.JQ.height();
+
+
+
+    return goal;
+}
+
+
+function startThirdGame(){
+
+    $('.game_3').fadeIn(0);
+
+    var timer = $('.game_3').find('.timer_line');
     timer.animate({
         width: '100%'
     }, timeForGame*1000);
     setTimeout(function(){
         timer.finish();
         timer.css('width', 0);
-        isPlaying = false;
-        cancelAnimationFrame(anim_id);
-        $('.game_window > .text').html('За время игры ты купил '+countNecessary+' шт. художественных товаров на '+(buyTotal+money[2].game)+' из 1000 рублей. А также других товаров на '+money[2].game+' руб.');
+        isPlaying3 = false;
+        $('.game_window > .text').html('За время игры ты зафиксировал '+numberCollectIncome+' шт. доходов и '+numberCollectCost+' шт. расходов. В качестве награды ты заработал '+money[3].game+' руб.');
         $('.game_window').fadeIn(0);
     }, timeForGame*1000);
 
 
-    for(i=0; i<12; i++){
-        purchases.push(createPurchase());
-
+    for(i = 0; i<countGoals; i++){
+        $('.goals_all').append($('<div class="note"><div class="note_text"></div><div class="note_amount"></div></div>'));
+        goals.push(createGoal(i+1));  
     }
-    console.log(purchases);
-        
-    fps = 60;
-    var the_game = 0;
-    the_game = function () {
-        $.each(purchases, function(){
-            var purchase = this;
-            purchase = purchaseMove(purchase);
+    console.log(goals);
 
-            if(purchase.isBought && purchase.left > 100){
-                console.log(purchase.left);
-                purchases.splice(purchases.indexOf(purchase),1);
-                purchases.push(recreatePurchase(purchase));
-                purchase = purchases[purchases.length-1];
-                //return;
-            }
-                if (checkPurchaseTouchBuyLine(purchase)) {
-                if(!purchase.isBought){
-                    purchase.isBought = true;
-                    buyTotal += purchase.price;
-                    $('.buy_total').html(buyTotal+'.00');
-                    if(purchase.isUnnecessary){
-                        changeTotalMoney(-purchase.price);
-                        money[2].game-=purchase.price;
-                    } else {
-                        countNecessary++;
-                    }
-                } 
-            }
-        });
-        setTimeout(function(){
-            if(isPlaying) requestAnimationFrame(the_game);
-        }, 1000/fps);
-        
-    };
 
-    setInterval(function(){
-        purchaseSpeed +=0.05;
-    }, 5000);
-
-    $('.purchases_box > div').click(function(){
-        var purchase = findObjByJQ(purchases, $(this));
-        console.log(purchase);
-        
-        purchases.splice(purchases.indexOf(purchase),1);
-
-        purchases.push(recreatePurchase(purchase));
- 
-    });
-
-    anim_id = requestAnimationFrame(the_game);
 }
-
-
 
 $(document).ready(function() {
 
@@ -578,6 +265,8 @@ $(document).ready(function() {
 
     videojsPlayers = [];
     videos = [];
+
+            startThirdGame();
 
    $.each($('video'), function(){
         $(this).addClass('video-js vjs-default-skin');
@@ -601,11 +290,8 @@ $(document).ready(function() {
         var player = this.vPlayer;
 
        player.on('play', function(){
-
             
  //           $('.navigation > .'+ videoData.scene).removeClass('lock');
-
-            
            player.on('timeupdate', function(){
                 var videoData = findVideoById(this.id());
                 var currentScene = Number(videoData.scene.slice(6,7));
@@ -723,7 +409,7 @@ $('.total_money').html(totalMoney);
         $('.navigation').fadeIn(0);
     });
 
-        startFirstGame();
+
 //$('.game_1').fadeIn(0);
         //startFirstGame();
     $('.button_game').click(function() {

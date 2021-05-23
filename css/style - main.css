@@ -151,7 +151,7 @@ div {
   margin-top: 3.13vw;
   margin-bottom: 5.73vw;
   border-radius: 2.6vw;
-
+  overflow: hidden;
 }
 
 .timer_line {
@@ -162,8 +162,20 @@ div {
 border-radius: 2.6vw;
 }
 
+.game_1 .timer_line{
+  background: var(--light-green);
+}
+
 .game_2 .timer_line{
   background: var(--yellow);
+}
+
+.game_3 .timer_line{
+  background: var(--light-blue);
+}
+
+.game_4 .timer_line{
+  background: var(--light-red);
 }
 
 .white_box{
