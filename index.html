@@ -13,7 +13,10 @@
         <script src="js/video-js-7.11.5/video.js"></script>
         <script src="js/jquery.ui.touch-punch.min.js"></script>
         <!--<script src="js/video-js-4.12.11/video.js"></script>-->
+        <script src="js/game 1.js"></script>
         <script src="js/game 2.js"></script>
+        <script src="js/game 3.js"></script>
+        <script src="js/game 4.js"></script>
         <script src="js/script.js"></script>
 
 
@@ -146,8 +149,8 @@
                 </video>   
             </div>
         </div>
-        <div class="button">
-            Сцены
+        <div class="button_scenes">
+            <img src="media/svg/scenes_icon.svg">
         </div>
         <div class="money">
             <div class="total_money">0</div>
@@ -156,23 +159,24 @@
         </div>
 
         <div class="navigation" style="display: none;">
-            <div>
+            <div class="navigation_part">
                 <div class ="scene_1 lock">Сцена 1<img src="media/svg/padlock.svg"></div>
                 <div class ="scene_2 lock">Сцена 2<img src="media/svg/padlock.svg"></div>
                 <div class ="game_1 lock">Игра 1<img src="media/svg/padlock.svg"></div>
                 <div class ="scene_3 lock">Сцена 3<img src="media/svg/padlock.svg"></div>
                 <div class ="game_2 lock">Игра 2<img src="media/svg/padlock.svg"></div>
             </div>
-            <div>
+            <div class="navigation_part">
                 <div class ="scene_4 lock">Сцена 4<img src="media/svg/padlock.svg"></div>
                 <div class ="game_3 lock">Игра 3<img src="media/svg/padlock.svg"></div>
                 <div class ="scene_5 lock">Сцена 5<img src="media/svg/padlock.svg"></div>
                 <div class ="game_4 lock">Игра 4<img src="media/svg/padlock.svg"></div>
                 <div class ="scene_6 lock">Сцена 6<img src="media/svg/padlock.svg"></div>
              </div>
+             <div class="close"><img src="media/svg/close_icon.svg"></div>
         </div> 
-        <div class="button_game">
-            Игры
+        <div class="button_info">
+            <img src="media/svg/info_icon.svg">
         </div>
         <div class="game_1" style="display: none;">
             <div class = "game_title">Собери деньги в конверт</div>
@@ -209,8 +213,11 @@
         <div class="game_3" style="display: none;">
             <div class = "game_title">Сформулируй цели</div>
             <div class = "game_3_box">
-                <div class="goals_all"></div>
+                <div class="goals_all">
+                    <ul class="goals"></ul>
+                </div>
             </div>
+            <div class="button_formulate"><img src="media/svg/formulate_icon.svg"></div>
             <div class="timer"><div class="timer_line"></div></div>
             <div class = "white_box"></div>
         </div>
@@ -222,8 +229,15 @@
             <div class="timer"><div class="timer_line"></div></div>
             <div class = "white_box"></div>
         </div>
-        <div class="game_window" style="display: none;">
-            <div class="text"></div>
+        <div class="game_end" style="display: none;">
+            <div class="game_window">
+                <div class="title">Мини-игра завершена</div>
+                <div class="text">За время игры ты собрал 1100 руб.</div>
+                <div class="buttons">
+                    <div class="button_game_again"><img src="media/svg/again_icon.svg"></div>
+                    <div class="button_game_continue">Продолжить</div>
+                </div>
+            </div>
         </div>  
     </body>
 </html>

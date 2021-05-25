@@ -44,6 +44,12 @@ body{
     font-size: 1.56vw;
   line-height: 1.5em;
   text-align: center;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+     -khtml-user-select: none; 
+       -moz-user-select: none;
+        -ms-user-select: none; 
+            user-select: none;
 }
 
 body::backdrop {
@@ -195,7 +201,7 @@ border-radius: 2.6vw;
 
 $primary-foreground-color: #fff; // #fff default
 
-$primary-background-color: #2B333F;  // #2B333F default
+$blue: var(--blue);  // #2B333F default
 
 $center-big-play-button: true; // true default
 
@@ -239,16 +245,52 @@ $center-big-play-button: true; // true default
 }
 
 .video-js .vjs-control-bar {
-  /* Start hidden *///
-  display: none;
   position: absolute;
-  bottom: 5vh;
+  bottom: 1.56vw;
   left: 0;
   right: 0;
-  height: 3.0em;
-  width: 70%;
+  height: 3.13vw;
+  width:  44.79vw;
   margin: auto;
-  background-color: var(--dark-blue);
+  background-color: rgba(255,255,255, 0.5);
+    border-radius: 5.21vw;
+    padding: 0 1vw;
+}
+
+.vjs-button > .vjs-icon-placeholder:before {
+  font-size: 4em;
+  line-height: 1.5em;
+
+}
+
+.vjs-default-skin .vjs-control {
+  outline: none;
+  position: relative;
+  float: left;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+  height: 3.13vw;
+  width: 3.13vw;
+  color: var(--blue);
+}
+
+.video-js .vjs-progress-holder {
+
+  height: 0.31vw;
+  border-radius: 1vw;
+  background-color: rgba(13,59,122, 0.5);
+}
+
+.video-js .vjs-load-progress {
+  border-radius: 1vw;
+  background-color: rgba(13,59,122, 0.5);
+}
+
+
+.video-js .vjs-play-progress {
+  background-color: var(--blue);
+  border-radius: 1vw;
 }
 
 .vjs-default-skin .vjs-mute-control,
@@ -276,9 +318,35 @@ $center-big-play-button: true; // true default
 }
 
 
-.video-js .vjs-load-progress div {
-  background: lighten($slider-bg-color, 50%);/
-  background: rgba($slider-bg-color, 0.75);
+.video-js .vjs-load-progress {
+
+}
+
+.video-js .vjs-play-progress {
+  font-size: 1vw;
+}
+
+.video-js .vjs-play-progress:before {
+  font-size: 1vw;
+  position: absolute;
+  right: -0.5em;
+  top: -0.3em;
+  z-index: 1;
+  color: var(--blue);
+}
+
+.video-js .vjs-remaining-time {
+    display: block;
+}
+
+.video-js .vjs-time-control {
+  flex: none;
+  font-size: 2em;
+  line-height: 3em;
+  min-width: 2em;
+    font-family: Montserrat-Bold;
+    margin: 0 1vw;
+
 }
 
 
@@ -297,7 +365,7 @@ $center-big-play-button: true; // true default
   line-height: 60px;
 }
 
-.navigation div{
+.navigation_part{
     display: flex;
     align-items: center;
     justify-content: space-around;
@@ -305,7 +373,7 @@ $center-big-play-button: true; // true default
         height: 50%;
 }
 
-.navigation div div{
+.navigation_part div{
   display: flex;
     align-items: center;
     justify-content: center;
@@ -321,29 +389,56 @@ $center-big-play-button: true; // true default
   cursor: default;
 }
 
-.navigation div img{
+.navigation_part div img{
   display: none;
   width: 35%;
   background: var(--white);
 }
 
-.navigation .lock img{
+.navigation_part .lock img{
   display: block;
 }
 
-.button{
+.close {
+  width: 3.13vw;
+  height: 3.13vw;
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 1.82vw;
+  cursor: pointer;
+  z-index: 2;
+}
+
+.close img{
+  width: 100%
+}
+
+.button_scenes, .button_info{
   display: flex;
     align-items: center;
     justify-content: center;
-  width: 10%;
-  height: 10%;
+  width: 6.77vw;
+  height: 6.77vw;
   position: absolute;
   bottom: 0;
   right: 0;
-  background: var(--dark-blue);
+  background: var(--white);
   cursor: pointer;
-  color: var(--white);
+  color: var(--blue);
+  border-radius: 5.21vw 5.21vw 0 5.21vw;
 }
+
+.button_info{
+  left: 0;
+    border-radius: 5.21vw 5.21vw 5.21vw 0;
+}
+
+.button_scenes img, .button_info img{
+  width: 100%;
+  }
+
+
 
 .money{
   width: 15.1vw;
@@ -353,6 +448,7 @@ $center-big-play-button: true; // true default
   right: 0;
   color: var(--white);
   z-index: 3;
+  pointer-events: none;
 }
 
 .total_money{

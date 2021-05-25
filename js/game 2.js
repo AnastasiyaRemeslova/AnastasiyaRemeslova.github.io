@@ -1,5 +1,5 @@
 //Игра - Очисти ленту от ненужных покупок
-var purchases = [], purchasesBought = [], buyLine;
+var purchases = [], buyLine;
 var purchaseSpeed = 0.2, numberPurchasesInHeight = 3, betweenPurchases = 1.2, percentNeccecary = 40;
 
 var purchasesData = [
@@ -144,6 +144,7 @@ function purchaseMove(purchase) {
 function startSecondGame(){
 
     $('.game_2').fadeIn(0);
+    $('.navigation > div > .game_2').removeClass('lock');
 
     buyLine = {
         JQ: $('.buy_line'),
@@ -152,7 +153,14 @@ function startSecondGame(){
         top: $('.buy_line').position().top 
     }
 
-    var buyTotal = 0, isPlaying = true, countNecessary=0;
+    var buyTotal = 0, isPlaying = true;
+
+    money[2].game = 0;
+    countNecessary = 0;
+    buyTotal = 0;
+    purchases = [];
+    purchaseSpeed = 0.2;
+    $('.purchases_box').empty();
 
     var anim_id;
 
@@ -161,12 +169,14 @@ function startSecondGame(){
         width: '100%'
     }, timeForGame*1000);
     setTimeout(function(){
+
         timer.finish();
         timer.css('width', 0);
+        if(isPlaying) {
         isPlaying = false;
-        cancelAnimationFrame(anim_id);
-        $('.game_window > .text').html('За время игры ты купил '+countNecessary+' шт. художественных товаров на '+(buyTotal+money[2].game)+' из 1000 рублей. А также других товаров на '+money[2].game+' руб.');
-        $('.game_window').fadeIn(0);
+            cancelAnimationFrame(anim_id);
+            showGameEndWindow('game_2', 'За время игры ты купил художественных товаров</br>на '+(buyTotal+money[2].game)+' из 1000 рублей: '+countNecessary+' шт.</br></br>А также других товаров на '+money[2].game+' руб.');
+        }
     }, timeForGame*1000);
 
     for(i=0; i<12; i++){
@@ -190,10 +200,20 @@ function startSecondGame(){
                     purchase.isBought = true;
                     buyTotal += purchase.price;
                     $('.buy_total').html(buyTotal+'.00');
+                    
                     if(purchase.isUnnecessary){
+                        if(totalMoney-purchase.price<0){
+                            isPlaying = false;
+                            cancelAnimationFrame(anim_id);
+                             showGameEndWindow('game_2', 'Закончились все деньги в кошельке.</br></br>За время игры ты купил художественных товаров</br>на '+(buyTotal+money[2].game)+' из 1000 рублей: '+countNecessary+' шт.</br></br>А также других товаров на '+money[2].game+' руб.');
+                        }
                         changeTotalMoney(-purchase.price);
                         money[2].game-=purchase.price;
                     } else {
+                        if(buyTotal+money[2].game+purchase.price > 1000){
+                            changeTotalMoney(-purchase.price);
+                            money[2].game-=purchase.price;
+                        }
                         countNecessary++;
                     }
                 } 

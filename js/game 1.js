@@ -1,7 +1,7 @@
 //Игра - Собери монетки в копилку
 
 var moneyBox;
-var numberCoinsInWidth = 6, betweenCoins = 2, percent10 = 75, coinSpeed = 3, countCoins = 15;
+var numberCoinsInWidth = 6, betweenCoins = 2, percent10 = 75, coinSpeed = 3, countCoins = 15, numberCollect10, numberCollect100;
 var coins = [];
 var coinsData = [{price: 100, url: 'media/svg/money_100.svg'},
     {price: 10, url: 'media/svg/money_10.svg'}];
@@ -126,6 +126,7 @@ function checkCoinTouchFloor(coin) {
 function startFirstGame(){
 
     $('.game_1').fadeIn(0);
+    $('.navigation > div > .game_1').removeClass('lock');
 
     moneyBox = {
         JQ: $('.money_box'),
@@ -134,7 +135,14 @@ function startFirstGame(){
         top: $('.money_box').position().top 
     }
 
-    var isPlaying = true, collectTotal = 0;
+    var isPlaying = true;
+    money[1].game = 0;
+    numberCollect10 = 0;
+    numberCollect100 = 0;
+    countOfRecreate = 0;
+    coins = [];
+    $('.coins_box').empty();
+
     var anim_id;
 
     var timer = $('.game_1').find('.timer_line');
@@ -146,8 +154,7 @@ function startFirstGame(){
         timer.css('width', 0);
         isPlaying = false;
         cancelAnimationFrame(anim_id);
-        $('.game_window > .text').html('За время игры ты собрал '+money[1].game+' руб.');
-        $('.game_window').fadeIn(0);
+        showGameEndWindow('game_1', 'За время игры ты собрал '+money[1].game+' руб.</br></br>Положив в конверт монет по 10 рублей: '+numberCollect10+' шт.</br>и купюр по 100 рублей: '+numberCollect100+' шт.');
     }, timeForGame*1000);
 
 
@@ -166,9 +173,10 @@ function startFirstGame(){
         if (checkCoinTouchMoneybox(coin)) {
             if(!coin.isCollect){
                 coin.isCollect = true;
-                collectTotal += coin.price;
                 changeTotalMoney(coin.price);
                 money[1].game+=coin.price;
+                if(coin.is10) numberCollect10++;
+                if(!coin.is10) numberCollect100++;
                 setTimeout(function(){
                     coin.JQ.animate({
                         opacity: '0'

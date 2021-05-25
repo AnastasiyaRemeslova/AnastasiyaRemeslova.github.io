@@ -1,5 +1,5 @@
 //Игра - отследи доходы и расходы
-var percentIncome = 50, countNotes = 6, positionMultiplicity=20, maxTime = 7, numberCollectIncome=0, numberCollectCost=0, prizeTotal, prize = 50, isPlaying4 = true;
+var percentIncome = 50, countNotes = 6, positionMultiplicity=20, maxTime = 5, numberCollectIncome=0, numberCollectCost=0, prizeTotal, prize = 20, isPlaying4 = true;
 var notes = [];
 var notesData = [
 [{text: 'Набор карандашей', amount: -100},
@@ -118,9 +118,12 @@ function recreateNote(note){
 function disappearNote(note){
     note.JQ.removeClass('appear_animation');
     note.JQ.addClass('disappear_animation');
+    note.JQ.css('opacity', 0);
+    note.JQ.css('transform', 'scale(0)');
     note.isDisappeared = true;
 
     setTimeout(function(){
+        note.JQ.removeClass('disappear_animation');
         var index = notes.indexOf(note);
         var newNote = recreateNote(note);
         notes[index] = newNote;
@@ -140,6 +143,9 @@ function appearNote(note){
     note.JQ.css('transform', 'scale(1)');
 note.isDisappeared = false;
     setTimeout(function(){
+        note.JQ.removeClass('appear_animation');
+    },1000);
+    setTimeout(function(){
 
         if(isPlaying4 && !note.isDisappeared){
         disappearNote(note);
@@ -150,8 +156,17 @@ note.isDisappeared = false;
 function startFourthGame(){
 
     $('.game_4').fadeIn(0);
+    $('.navigation > div > .game_4').removeClass('lock');
 
     var collectTotal = 0;
+
+    money[4].game = 0;
+    notes = [];
+    $('.notes_all').empty();
+    isPlaying4 = true;
+    numberCollectCost = 0;
+    numberCollectIncome = 0;
+
     var anim_id;
 
     var timer = $('.game_4').find('.timer_line');
@@ -162,8 +177,8 @@ function startFourthGame(){
         timer.finish();
         timer.css('width', 0);
         isPlaying4 = false;
-        $('.game_window > .text').html('За время игры ты зафиксировал '+numberCollectIncome+' шт. доходов и '+numberCollectCost+' шт. расходов. В качестве награды ты заработал '+money[4].game+' руб.');
-        $('.game_window').fadeIn(0);
+        showGameEndWindow('game_4', 'За время игры ты зафиксировал</br>доходов: '+numberCollectIncome+' шт. и расходов: '+numberCollectCost+' шт.</br></br>В качестве награды ты заработал '+money[4].game+' руб.');
+        return;
     }, timeForGame*1000);
 
 
@@ -182,6 +197,8 @@ function startFourthGame(){
     });
 
     $('.notes_all > div').click(function(){
+        if(!$(this).hasClass('appear_animation') && !$(this).hasClass('disappear_animation')){
+        if(isPlaying4){
         var note = findObjByJQ(notes, $(this));
         disappearNote(note);
             
@@ -189,6 +206,12 @@ function startFourthGame(){
         else numberCollectCost++;
         changeTotalMoney(prize);
         money[4].game+=prize;
+        }
+        else{
+            numberCollectCost = 0;
+            numberCollectIncome = 0;
+        }
+    }
     });
 
 }
