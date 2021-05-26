@@ -49,6 +49,9 @@ function createGoal(number){
 
 function startThirdGame(){
 
+    changeTotalMoney(-money[3].game, false);
+    money[3].game = 0;
+
     $('.game_3').fadeIn(0);
     $('.navigation > div > .game_3').removeClass('lock');
 
@@ -107,7 +110,7 @@ function startThirdGame(){
             var left = ($('.goals').position().left-currentGoal.JQ.width())/$('.goals_all').width()*100;
             $('.goals').css('transform','translateX('+left+'vw)');
             money[3].game += 50;
-            changeTotalMoney(50);
+            changeTotalMoney(50, true);
         }
     }else{
         currentGoalNumber = 1;

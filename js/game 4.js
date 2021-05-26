@@ -1,6 +1,6 @@
 //Игра - отследи доходы и расходы
-var percentIncome = 50, countNotes = 6, positionMultiplicity=20, maxTime = 5, numberCollectIncome=0, numberCollectCost=0, prizeTotal, prize = 20, isPlaying4 = true;
-var notes = [];
+var percentIncome = 50, countNotes = 6, positionMultiplicity=20, maxTime = 5, numberCollectIncome=0, numberCollectCost=0, prizeTotal, prize = 25, isPlaying4 = true;
+var notes;
 var notesData = [
 [{text: 'Набор карандашей', amount: -100},
     {text: 'Мороженое и сок', amount: -100},
@@ -116,35 +116,55 @@ function recreateNote(note){
 }
 
 function disappearNote(note){
+    /*
+    console.log("disappear", note.number);
     note.JQ.removeClass('appear_animation');
     note.JQ.addClass('disappear_animation');
+    //note.JQ.css('opacity', 0);
+    //note.JQ.css('transform', 'scale(0)');
+    */
+    note.JQ.css('transform','scale(0)');
     note.JQ.css('opacity', 0);
-    note.JQ.css('transform', 'scale(0)');
     note.isDisappeared = true;
-
+    
     setTimeout(function(){
-        note.JQ.removeClass('disappear_animation');
+        
+        //note.JQ.removeClass('disappear_animation');
         var index = notes.indexOf(note);
+        console.log(index);
+        if(index != -1){
         var newNote = recreateNote(note);
         notes[index] = newNote;
         note = notes[index];
         setTimeout(function(){
-            if(isPlaying4){
+            if(isPlaying4 && note.isDisappeared){
                 appearNote(note);   
             }
         }, random(1, maxTime)*1000);
+    }
     }, 1000); 
 }
 
 function appearNote(note){
+
+
+/*
+    console.log("appear", note.number);
     note.JQ.removeClass('disappear_animation');
     note.JQ.addClass('appear_animation');
         note.JQ.css('opacity', 1);
     note.JQ.css('transform', 'scale(1)');
-note.isDisappeared = false;
+    */
+    note.JQ.css('opacity', 1);
+    note.JQ.css('transform', 'scale(1)');
+
     setTimeout(function(){
-        note.JQ.removeClass('appear_animation');
-    },1000);
+        $('.notes_all > div:nth-child('+note.number+')').click(function(){
+            onClickNote($(this));
+        });
+        note.isDisappeared = false;
+        //note.JQ.removeClass('appear_animation');
+    },750);
     setTimeout(function(){
 
         if(isPlaying4 && !note.isDisappeared){
@@ -153,7 +173,26 @@ note.isDisappeared = false;
     }, random(3, 5)*1000);
 }
 
+function onClickNote(noteJQ) {
+            var note = findObjByJQ(notes, noteJQ);
+if(!note.isDisappeared){
+    noteJQ.off('click');
+        console.log("click", note.number);
+        disappearNote(note);
+            
+        if(note.isIncome) numberCollectIncome++;
+        else numberCollectCost++;
+        changeTotalMoney(prize, true);
+        money[4].game+=prize;
+        
+
+    }
+}
+
 function startFourthGame(){
+
+    changeTotalMoney(-money[4].game, false);
+    money[4].game = 0;
 
     $('.game_4').fadeIn(0);
     $('.navigation > div > .game_4').removeClass('lock');
@@ -162,6 +201,7 @@ function startFourthGame(){
 
     money[4].game = 0;
     notes = [];
+
     $('.notes_all').empty();
     isPlaying4 = true;
     numberCollectCost = 0;
@@ -177,41 +217,31 @@ function startFourthGame(){
         timer.finish();
         timer.css('width', 0);
         isPlaying4 = false;
+        $('.notes_all > div').off('click');
         showGameEndWindow('game_4', 'За время игры ты зафиксировал</br>доходов: '+numberCollectIncome+' шт. и расходов: '+numberCollectCost+' шт.</br></br>В качестве награды ты заработал '+money[4].game+' руб.');
-        return;
     }, timeForGame*1000);
 
 
     for(i = 0; i<countNotes; i++){
         $('.notes_all').append($('<div class="note"><div class="note_text"></div><div class="note_amount"></div></div>'));
-        notes.push(createNote(i+1));  
+        notes.push(createNote(i+1));
+          console.log(notes[i]);
     }
     console.log(notes);
 
     $.each(notes, function(){
         var note = this;
         setTimeout(function(){
-            appearNote(note);    
-        }, random(1, maxTime)*1000);
+            if(isPlaying4 && note.isDisappeared){
+            appearNote(note); 
+            }   
+        }, random(0, maxTime)*1000);
             
     });
 
     $('.notes_all > div').click(function(){
-        if(!$(this).hasClass('appear_animation') && !$(this).hasClass('disappear_animation')){
-        if(isPlaying4){
-        var note = findObjByJQ(notes, $(this));
-        disappearNote(note);
-            
-        if(note.isIncome) numberCollectIncome++;
-        else numberCollectCost++;
-        changeTotalMoney(prize);
-        money[4].game+=prize;
-        }
-        else{
-            numberCollectCost = 0;
-            numberCollectIncome = 0;
-        }
-    }
+        
+onClickNote($(this));
     });
 
 }

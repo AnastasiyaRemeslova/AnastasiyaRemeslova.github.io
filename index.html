@@ -22,7 +22,20 @@
 
     </head>
     <body id="main">
-
+        <div class="start_box">
+            <div class="type">Интерактивный обучающий продукт</div>
+            <div class="title">Финансы в порядке</div>
+            <div class="description">Девочка Ася попадает в разные ситуации и познает мир финансов.</br></br>Помоги ей принять решение и позаботься о сумме в кошельке</div>
+            <div class="button_start">Начать</div>
+            <div class="button_continue" style="display: none;">Продолжить</div>
+        </div>
+        <div class="end_box" style="display: none;">
+            <div class="type">Результаты</div>
+            <div class="title">Финансы в порядке</div>
+            <div class="description">Девочка Ася попадает в разные ситуации и познает мир финансов.</br></br>Помоги ей принять решение и позаботься о сумме в кошельке</div>
+            <div class="button_start">Начать заново</div>
+            
+        </div>
         <div class="videos" >
             <div class = "scene_1 active">
                 <video class ="v_main active" controls>
@@ -158,20 +171,67 @@
             <img class="wallet_icon" src="media/svg/wallet_icon.svg">
         </div>
 
-        <div class="navigation" style="display: none;">
-            <div class="navigation_part">
-                <div class ="scene_1 lock">Сцена 1<img src="media/svg/padlock.svg"></div>
-                <div class ="scene_2 lock">Сцена 2<img src="media/svg/padlock.svg"></div>
-                <div class ="game_1 lock">Игра 1<img src="media/svg/padlock.svg"></div>
-                <div class ="scene_3 lock">Сцена 3<img src="media/svg/padlock.svg"></div>
-                <div class ="game_2 lock">Игра 2<img src="media/svg/padlock.svg"></div>
-            </div>
-            <div class="navigation_part">
-                <div class ="scene_4 lock">Сцена 4<img src="media/svg/padlock.svg"></div>
-                <div class ="game_3 lock">Игра 3<img src="media/svg/padlock.svg"></div>
-                <div class ="scene_5 lock">Сцена 5<img src="media/svg/padlock.svg"></div>
-                <div class ="game_4 lock">Игра 4<img src="media/svg/padlock.svg"></div>
-                <div class ="scene_6 lock">Сцена 6<img src="media/svg/padlock.svg"></div>
+        <div class="navigation_box" style="display: none;">
+            <div class="navigation">
+                <div class="title">Сцены</div>
+                <div class="navigation_part">
+                    <div class ="scene_1 lock">Сцена 1
+                        <div class="lock_box">
+                            <img src="media/svg/padlock.svg">
+                        </div>
+                    </div>
+                    <div class ="scene_2 lock">Сцена 2<p>Накопления</p>
+                        <div class="lock_box">
+                            <img src="media/svg/padlock.svg">
+                        </div>
+                    </div>
+                    <div class ="game_1 lock">Мини-игра
+                        <div class="lock_box">
+                            <img src="media/svg/padlock.svg">
+                        </div>
+                        <div class="line"></div>
+                    </div>
+                    <div class ="scene_3 lock">Сцена 3<p>Обдуманные траты</p>
+                        <div class="lock_box">
+                            <img src="media/svg/padlock.svg">
+                        </div>
+                    </div>
+                    <div class ="game_2 lock">Мини-игра
+                        <div class="lock_box">
+                            <img src="media/svg/padlock.svg">
+                        </div>
+                        <div class="line"></div>
+                    </div>
+                </div>
+                <div class="navigation_part">
+                    <div class ="scene_4 lock">Сцена 4<p>Список целей</p>
+                        <div class="lock_box">
+                            <img src="media/svg/padlock.svg">
+                        </div>
+                    </div>
+                    <div class ="game_3 lock">Мини-игра
+                        <div class="lock_box">
+                            <img src="media/svg/padlock.svg">
+                        </div>
+                        <div class="line"></div>
+                    </div>
+                    <div class ="scene_5 lock">Сцена 5<p>Доходы и расходы</p>
+                        <div class="lock_box">
+                            <img src="media/svg/padlock.svg">
+                        </div>
+                    </div>
+                    <div class ="game_4 lock">Мини-игра
+                        <div class="lock_box">
+                            <img src="media/svg/padlock.svg">
+                        </div>
+                        <div class="line"></div>
+                    </div>
+                    <div class ="scene_6 lock">Сцена 6
+                        <div class="lock_box">
+                            <img src="media/svg/padlock.svg">
+                        </div>
+                    </div>
+                 </div>
              </div>
              <div class="close"><img src="media/svg/close_icon.svg"></div>
         </div> 

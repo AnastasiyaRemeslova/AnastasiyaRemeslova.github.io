@@ -125,6 +125,9 @@ function checkCoinTouchFloor(coin) {
 
 function startFirstGame(){
 
+    changeTotalMoney(-money[1].game, false);
+    money[1].game = 0;
+
     $('.game_1').fadeIn(0);
     $('.navigation > div > .game_1').removeClass('lock');
 
@@ -142,6 +145,8 @@ function startFirstGame(){
     countOfRecreate = 0;
     coins = [];
     $('.coins_box').empty();
+
+    moneyBox.JQ.css('left', '31.25vw');
 
     var anim_id;
 
@@ -173,7 +178,7 @@ function startFirstGame(){
         if (checkCoinTouchMoneybox(coin)) {
             if(!coin.isCollect){
                 coin.isCollect = true;
-                changeTotalMoney(coin.price);
+                changeTotalMoney(coin.price, true);
                 money[1].game+=coin.price;
                 if(coin.is10) numberCollect10++;
                 if(!coin.is10) numberCollect100++;
@@ -205,10 +210,14 @@ function startFirstGame(){
         axis: "x",
         containment: 'parent',
         stop: function(e, ui) {
-            moneyBox.position = ui.position.left / $('.game_1').width() * 100;
+
+            moneyBox.position = ui.position.left / $('body').width() * 100;
             ui.helper.css('left', moneyBox.position + 'vw');
-            moneyBox.top = ui.position.top / $('.game_1').width() * 100;
-            ui.helper.css('top', moneyBox.top + 'vw');
+            moneyBox.top = ui.offset.top / $('body').width() * 100;
+            //var bottom = 100 - (moneyBox.JQ.height()+ui.offset.top)/ $('body').width() * 100;
+           ui.helper.css('bottom', '7.3vw');
+           ui.helper.css('top', '');
+
         }
     });
 }

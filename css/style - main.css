@@ -34,6 +34,18 @@ font-style: normal;
 
 }
 
+@font-face{
+
+font-family: Montserrat-Black;
+
+src: url('fonts/Montserrat-Black.ttf') format('truetype');
+
+font-weight: normal;
+
+font-style: normal;
+
+}
+
 
 body{
   height: 100%;
@@ -58,6 +70,62 @@ body::backdrop {
 
 div {
   z-index: 2;
+}
+
+.start_box{
+  width: 100%;
+  height: 100%;
+  background-color: var(--light-yellow);
+  position: absolute;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.type{
+  height: 2.08vw;
+  width: 36.46vw;
+  color: var(--dark-blue);
+  font-family: Montserrat-Medium;
+  font-size: 0.85em;
+  line-height: 2.08vw;
+  margin: 0 1.04vw;
+}
+
+.title {
+  height: 11.46vw;
+  width: 36.46vw;
+  color: var(--blue);
+  font-family: Montserrat-Black;
+  font-size: 3.35em;
+  line-height: 1.1em;
+}
+
+.description{
+  height: 7.28vw;
+  width: 30.21vw;
+  color: var(--green);
+  font-family: Montserrat-Medium;
+  font-size: 0.85em;
+  line-height: 1.25em;
+  padding: 3.13vw;
+}
+
+.button_start{
+  height: 5.21vw;
+  width: 23.96vw;
+  background-color: var(--white);
+  color: var(--blue);
+  font-family: Montserrat-Semibold;
+  font-size: 1.5em;
+  line-height: 1em;
+  border-radius: 2.6vw;
+  align-items: center;
+  display: flex;
+  justify-content: center;
 }
 
 .videos {
@@ -259,7 +327,7 @@ $center-big-play-button: true; // true default
 
 .vjs-button > .vjs-icon-placeholder:before {
   font-size: 4em;
-  line-height: 1.5em;
+  line-height: 3.13vw;
 
 }
 
@@ -342,35 +410,137 @@ $center-big-play-button: true; // true default
 .video-js .vjs-time-control {
   flex: none;
   font-size: 2em;
-  line-height: 3em;
+  line-height: 3.13vw;
   min-width: 2em;
     font-family: Montserrat-Bold;
     margin: 0 1vw;
 
 }
 
+.game_end, .navigation_box{
+  background-color: rgba(204, 204, 204, 0.75);
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+      position: absolute;
+    top: 0;
+}
+
+.game_window{
+  width: 36.46vw;
+  height: 23.96vw;
+  background-color: var(--white);
+  color: var(--blue);
+    font-size: 0.75em;
+  line-height: 0.75em;
+  text-align: center;
+    border-radius: 2.6vw;
+    padding: 3.13vw;
+      display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.game_window .title{
+      font-family: Montserrat-SemiBold;
+  font-size: 1.75em;
+  line-height: 2em;
+}
+
+.game_window .text{
+      font-family: Montserrat-Medium;
+  font-size: 1.25em;
+  line-height: 1.5em;
+  height: 12.5vw;
+  width: 100%;
+  margin: 1.04vw 0;
+}
+
+.buttons{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.buttons div{
+  margin: 0 0.52vw;
+}
+
+.button_game_again{
+  width: 5.21vw;
+  height: 5.21vw;
+  cursor: pointer;
+}
+
+.button_game_again img{
+  width: 100%;
+
+}
+
+.button_game_continue{
+  width: 17.71vw;
+  height: 5.21vw;
+  cursor: pointer;
+    border-radius: 2.6vw;
+     border: 0.16vw solid var(--blue);
+  font-family: Montserrat-SemiBold;
+  font-size: 1.75em;
+  line-height: 2em;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  position: relative;
+  bottom: 0;
+}
+
 
 .navigation {
     display: flex;
     align-items: center;
-    justify-content: space-around;
+    justify-content: flex-start;
     flex-direction: column;
     position: absolute;
-    width: 100%;
-    height: 100%;
-    padding: 0;
-    top: 0;
-    background-color: rgba(0, 0, 0, .5);
-    font-size: 40px;
-  line-height: 60px;
+    background-color: var(--white);
+
+  width: 76.04vw;
+  height: 32.29vw;
+  color: var(--blue);
+    font-size: 0.75em;
+  line-height: 0.75em;
+  text-align: center;
+    border-radius: 2.6vw;
+    padding: 5.21vw;
+
+
+}
+
+.navigation .title{
+  width: 100%;
+  height: 3.13vw;
+    font-family: Montserrat-SemiBold;
+  font-size: 2.25em;
+  line-height: 2em;
+  margin-bottom: 1.04vw;
+
+
 }
 
 .navigation_part{
     display: flex;
     align-items: center;
-    justify-content: space-around;
+    justify-content: space-between;
         flex-direction: row;
-        height: 50%;
+
+        
+        width: 73.96vw;
+        height: 9.38vw;
+        margin-top: 2.08vw;
+        margin-bottom: 4.17vw;
 }
 
 .navigation_part div{
@@ -378,36 +548,70 @@ $center-big-play-button: true; // true default
     align-items: center;
     justify-content: center;
     flex-direction: column;
-  width: 10%;
-  height: 20%;
-  background: var(--white);
+  width: 11.46vw;
+  height: 9.38vw;
+  background: var(--blue);
+  color: var(--white);
+  border-radius: 2.6vw;
   cursor: pointer;
   position: relative;
+  font-family: Montserrat-SemiBold;
+  font-size: 1.2em;
+  line-height: 1.2em;
+}
+
+.navigation_part div p{
+    font-family: Montserrat-Medium;
+  font-size: 0.85em;
+  color: var(--light-blue);
+
+}
+
+.game_1 .line, .game_2 .line, .game_3 .line, .game_4 .line{
+  position: absolute;
+  left: -4.17vw;
+  width: 4.17vw;
+  height: 2.08vw;
+  border-radius: 0;
+  background-color: var(--light-blue);
+  z-index: 1;
 }
 
 .navigation .lock{
   cursor: default;
+
 }
 
-.navigation_part div img{
+.navigation_part .lock_box {
+    background: var(--blue);
+  opacity: 0.5;
+  z-index: 3;
+  position: absolute;
+  top: 0;
   display: none;
-  width: 35%;
-  background: var(--white);
 }
 
-.navigation_part .lock img{
+.lock .lock_box{
   display: block;
 }
+
+.lock_box img{
+  
+  height: 100%;
+  opacity: 0.5;
+  
+}
+
 
 .close {
   width: 3.13vw;
   height: 3.13vw;
   position: absolute;
-  top: 0;
-  right: 0;
-  margin: 1.82vw;
+  top: 6.77vw;
+  right: 3.13vw;
+
   cursor: pointer;
-  z-index: 2;
+  z-index: 10;
 }
 
 .close img{

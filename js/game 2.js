@@ -143,6 +143,9 @@ function purchaseMove(purchase) {
 
 function startSecondGame(){
 
+    changeTotalMoney(-money[2].game, false);
+    money[2].game = 0;
+
     $('.game_2').fadeIn(0);
     $('.navigation > div > .game_2').removeClass('lock');
 
@@ -207,11 +210,11 @@ function startSecondGame(){
                             cancelAnimationFrame(anim_id);
                              showGameEndWindow('game_2', 'Закончились все деньги в кошельке.</br></br>За время игры ты купил художественных товаров</br>на '+(buyTotal+money[2].game)+' из 1000 рублей: '+countNecessary+' шт.</br></br>А также других товаров на '+money[2].game+' руб.');
                         }
-                        changeTotalMoney(-purchase.price);
+                        changeTotalMoney(-purchase.price, true);
                         money[2].game-=purchase.price;
                     } else {
                         if(buyTotal+money[2].game+purchase.price > 1000){
-                            changeTotalMoney(-purchase.price);
+                            changeTotalMoney(-purchase.price, true);
                             money[2].game-=purchase.price;
                         }
                         countNecessary++;
