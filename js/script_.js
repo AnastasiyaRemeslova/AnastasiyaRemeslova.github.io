@@ -206,6 +206,7 @@ function supportsLocalStorage() {
     return false;
   }
 }
+
 function saveGameState() {
     if (!supportsLocalStorage()) { return false; }
     localStorage["total.money"] = totalMoney;
@@ -216,6 +217,31 @@ function saveGameState() {
         localStorage["scene." + (i+1) + ".choice"] = money[i].choice;
         localStorage["scene." + (i+1) + ".game"] = money[i].game;
     }
+    return true;
+}
+
+function resumeGame() {
+    if (!supportsLocalStorage()) { return false; }
+    totalMoney = parseInt(localStorage["total.money"]);
+    for (var i = 0; i < 6; i++) {
+        money[i].hasChange = (localStorage["scene." + (i+1) + ".hasChange"] == "true");
+        money[i].isCurrent = (localStorage["scene." + (i+1) + ".isCurrent"] == "true");
+        money[i].isFirstPlayScene = (localStorage["scene." + (i+1) + ".isFirstPlayScene"] == "true");
+        money[i].hasChange = parseInt(localStorage["scene." + (i+1) + ".choice"]);
+        money[i].game = parseInt(localStorage["scene." + (i+1) + ".game"]);
+
+        if(money[i].isCurrent){
+            $('.active').addClass('hide');
+            $('.active').removeClass('aclive');
+            playScene('scene_'+(i+1));
+        }
+    }
+
+    $.each(money, function () {
+        if(this.isCurrent){
+            playScene('')
+        }
+    });
     return true;
 }
 
