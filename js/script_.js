@@ -63,6 +63,7 @@ function videojsCreate(video){
             'fullscreenToggle': false,
             'pictureInPictureToggle': false,
             'remainingTimeDisplay': true,
+            "preload": "auto"
         
       }, "fluid": true
     });
@@ -259,6 +260,7 @@ $(document).ready(function() {
         $(this).addClass('video-js vjs-default-skin');
 
         videos.push(videoCreate($(this)));
+
     });
 
     $('.ch_1, .ch_2').click(function() {
@@ -269,6 +271,9 @@ $(document).ready(function() {
         var lastVideo = $(this).parent().parent().parent().find('.v_main');
         playVideo(video, lastVideo);
     });
+
+    videos[0].vPlayer.load();
+    videos[1].vPlayer.load();
 
     $('.button_start').click(function(){
         //fullScreen(document.documentElement);
